@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/history/history"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeIn唯应",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "a9b7b7",
+    "list": [
+      {
+        "selectedIconPath": "images/new_selected.png",
+        "iconPath": "images/new.png",
+        "pagePath": "pages/index/index",
+        "text": "创建",
+        "color": "#a9b7b7",
+        "selectedColor": "#11cd6e"
+      },
+      {
+        "selectedIconPath": "images/history_selected.png",
+        "iconPath": "images/history.png",
+        "pagePath": "pages/history/history",
+        "text": "历史",
+        "color": "#a9b7b7",
+        "selectedColor": "#11cd6e"
+      }
+    ]
+  }
+}

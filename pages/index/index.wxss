@@ -1,0 +1,59 @@
+/**index.wxss**/
+.container {
+  font-size:16px; 
+  margin-top: -60px;
+}
+.container .cell {
+  border-top: 1px solid lightgray;
+  height: 40px;
+  width: 100%;
+  padding-top: 15px;
+}
+
+.container .description-cell {
+  border-top: 1px solid lightgray;
+  height: 80px;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.container .description-cell .title, .container .cell .title {
+  font-weight: bold;
+  float: left;
+  width: 20%;
+  text-align: center;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.container .description-cell .main, .container .cell .main {
+  width: 80%;
+  float: left;
+  text-align: center;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.container .cell .main .date {
+  float: left;
+  width: 50%;
+  display: block;
+}
+
+.container .cell .main .userinfo-name {
+  text-align: center;
+  margin-left: 10px;
+  overflow: hidden;
+  float: left;
+}
+
+.container .cell .main .userinfo-avatar {
+  margin-top: -5px;
+  float: left;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+}
+.container .description-cell .main .description {
+  height: 60px;
+}

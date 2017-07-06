@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="cell">
+    <view class="title">主题</view>
+    <view class="main">
+         <input bindinput="titleTap" placeholder="输入主题"/>
+    </view>
+  </view>
+  <view class="cell">
+    <view class="title">类型</view>
+    <view class="main">
+         <radio-group class="radio-group" bindchange="radioTap">
+            <label class="radio" wx:for="{{items}}">
+              <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+            </label>
+         </radio-group>
+    </view>
+  </view>
+  <view class="cell">
+    <view class="title">日期</view>
+    <view class="main">
+       <view class="date">
+          <picker mode="date" value="{{date}}" start="2015-09-01" end="2020-09-01" bindchange="dateTap">
+            <view class="picker">{{date || "选择日期"}}</view>
+          </picker>
+       </view>
+       <view class="date">
+          <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="timeTap">
+            <view class="picker">{{time || "选择时间"}}</view>
+          </picker>
+       </view>
+    </view>
+  </view>
+  <view class="cell">
+    <view class="title">位置</view>
+    <view class="main" bindtap="locationTap">
+        <view class="classname">{{location.address || "选择位置"}}</view>
+    </view>
+  </view>
+  <view class="cell">
+    <view class="title">局长</view>
+    <view class="main">
+         <image class="userinfo-avatar" src="{{user.avatarUrl}}" background-size="cover"></image>
+         <view class="userinfo-name">{{user.nickName}}</view>
+    </view>
+  </view>
+  <view class="description-cell">
+    <view class="title">描述</view>
+    <view class="main" >
+        <textarea class="description" bindinput="descriptionTap"  name="textarea" maxlength="200" rows="2" fixed="true"/>
+    </view>
+  </view>
+  <view class="cell">
+    <button type="primary" size="default" plain="default" bindtap="buttonTap">发起活动</button>
+  </view>
+</view>
