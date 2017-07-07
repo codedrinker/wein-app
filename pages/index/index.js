@@ -5,10 +5,10 @@ Page({
   data: {
     motto: 'Welcome',
     items: [
-      { name: 'food', value: '吃饭', checked: 'true' },
-      { name: 'ball', value: '约球'},
-      { name: 'ktv', value: 'K歌' },
-      { name: 'trip', value: '出游' }
+      { name: 0, value: '吃饭', checked: 'true' },
+      { name: 1, value: '约球'},
+      { name: 2, value: 'K歌' },
+      { name: 3, value: '出游' }
     ],
     userInfo: {}
   },
@@ -55,26 +55,26 @@ Page({
   }, 
   buttonTap: function(){
     var that = this;
-    wx.request({
-      url: "https://wechat-wein.herokuapp.com/activity/create",
-      data: {
-        activity: {
-            kind : that.data.kind,
-            title : that.data.title,
-            description : that.data.description,
-            date:that.data.date,
-            time:that.data.time,
-            location:that.data.location,
-            user: that.data.user
+    app.getUserInfo(function (user) {
+      wx.request({
+        url: "https://wechat-wein.herokuapp.com/activity/new",
+        data: {
+          kind: that.data.kind,
+          title: that.data.title,
+          description: that.data.description,
+          date: that.data.date,
+          time: that.data.time,
+          location: that.data.location,
+          user: user
+        },
+        method: "post",
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          console.log(res);
         }
-      },
-      method: "post",
-      header: {
-        'content-type': 'application/json'
-      },
-      success(res) {
-        console.log(res);
-      }
+      })
     })
   },
   onLoad: function () {

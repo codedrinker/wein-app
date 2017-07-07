@@ -13,13 +13,14 @@ App({
     }else{
       wx.login({
         success: function (res) {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo;
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          });
           if(res.code){
+            wx.getUserInfo({
+              success: function (res) {
+                that.globalData.userInfo = res.userInfo;
+                that.globalData.userInfo.code = res.code;
+                typeof cb == "function" && cb(that.globalData.userInfo)
+              }
+            });
             wx.request({               url:"https://wechat-wein.herokuapp.com/authorization",
               data: {
                 code: res.code
@@ -29,6 +30,7 @@ App({
                 'content-type': 'application/json'
               },
               success(codeRes){
+                console.log(codeRes);
                 if (!!that.globalData.userInfo){
                   that.globalData.userInfo.id = codeRes.data.data.openid;
                 }else {
@@ -36,6 +38,7 @@ App({
                     id : codeRes.data.data.openid
                   };
                 }
+                console.log(that.globalData.userInfo);
               }
             });
           }
