@@ -6,6 +6,20 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
   },
+  dialog: function (message) {
+    wx.showModal({
+      title: '提示',
+      content: message,
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   getUserInfo:function(cb){
     var that = this
     if(this.globalData.userInfo){

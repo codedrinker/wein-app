@@ -55,6 +55,31 @@ Page({
   }, 
   buttonTap: function(){
     var that = this;
+    if (!that.data.title) {
+      app.dialog("请输入主题");
+      return;
+    }
+
+    if (!that.data.date) {
+      app.dialog("请选择日期");
+      return;
+    }
+
+    if (!that.data.time) {
+      app.dialog("请选择时间");
+      return;
+    }
+
+    if (!that.data.title) {
+      app.dialog("请输入主题");
+      return;
+    }
+
+    if (!that.data.location) {
+      app.dialog("请选择位置");
+      return;
+    }
+
     app.getUserInfo(function (user) {
       wx.request({
         url: "https://wechat-wein.herokuapp.com/activity/new",
