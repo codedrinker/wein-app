@@ -41,7 +41,7 @@
     <view class="main" >{{description}}
     </view>
   </view>
-  <view class="cell" wx:if="{{canAttend}}">
+  <view class="cell" wx:if="{{!isAttended}}">
     <button type="primary" size="default" plain="default" bindtap="attendTap">参加活动</button>
   </view>
   <view class="cell">

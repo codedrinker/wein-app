@@ -56,43 +56,39 @@ Page({
   onLoad: function (options) {
     var that = this;
     if(options.id){
-      wx.request({
-        url: "https://wechat-wein.herokuapp.com/activity/show",
-        data: {
-          id: options.id
-        },
-        method: "get",
-        header: {
-          'content-type': 'application/json'
-        },
-        success(res) {
-          if(res.statusCode == 200){
-            if (res.data.data.kind == 0) {
-              res.data.data.kindName = "吃饭";
-            } else if (res.data.data.kind == 1) {
-              res.data.data.kindName = "约球";
-            } else if (res.data.data.kind == 2) {
-              res.data.data.kindName = "K歌";
-            } else {
-              res.data.data.kindName = "出游";
-            }
-            that.setData(res.data.data);
-            app.getUserInfo(function (user) {
-              if(user.id != res.data.data.user.id){
-                this.setData({
-                  canAttend: true
-                });
-                this.setData({
-                  currentUser: user
-                });
-              }
-            });
-          }else {
-            app.toast.failure();
-            wx.navigateBack();
+      app.xhr("https://wechat-wein.herokuapp.com/activity/show",
+      "get",
+      {
+        id: options.id
+      },
+      function(res){
+        if (res.statusCode == 200) {
+          if (res.data.data.kind == 0) {
+            res.data.data.kindName = "吃饭";
+          } else if (res.data.data.kind == 1) {
+            res.data.data.kindName = "约球";
+          } else if (res.data.data.kind == 2) {
+            res.data.data.kindName = "K歌";
+          } else {
+            res.data.data.kindName = "出游";
           }
+          that.setData(res.data.data);
+          app.getUserInfo(function (user) {
+            if (user.id != res.data.data.user.id) {
+              this.setData({
+                canAttend: true
+              });
+              this.setData({
+                currentUser: user
+              });
+            }
+          });
+        } else {
+          app.toast.failure();
+          wx.navigateBack();
         }
-      });
+      }
+      );
     }else {
       app.toast.failure();
       wx.navigateBack();

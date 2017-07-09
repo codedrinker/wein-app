@@ -36,6 +36,28 @@ App({
       }
     })
   },
+  xhr: function (url,method,data,cb){
+    this.getUserInfo(function (user) {
+      if(data){
+        data.uid = user.id;
+      }else {
+        data = {
+          uid:user.id
+        }
+      }
+      wx.request({
+        url: url,
+        data: data,
+        method: method,
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          typeof cb == "function" && cb(res)
+        }
+      });
+    });
+  },
   getUserInfo:function(cb){
     var userInfo = wx.getStorageSync('userInfo');
     if (userInfo){
