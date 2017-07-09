@@ -114,12 +114,20 @@ Page({
       })
     })
   },
+  onShow: function () {
+    var that = this;
+    app.getUserInfo(function (user) {
+      that.setData({
+        user: user
+      })
+    });
+  },
   onLoad: function () {
     var that = this;
     app.getUserInfo(function (user){
       that.setData({
         user:user
       })
-    })
+    });
   }
 })
