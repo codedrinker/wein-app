@@ -1,4 +1,4 @@
-// pages/activity/list.js
+var app = getApp();
 Page({
 
   /**
@@ -7,47 +7,59 @@ Page({
   data: {
   
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  showActivity : function(event){
+    if (event.currentTarget.id){
+        wx.navigateTo({
+          url: 'show?id=' + event.currentTarget.id
+        });
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-  
+    this.load();
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  load : function(){
+    wx.showLoading({
+      title: '正在加载',
+    });
+    var that = this;
+    app.xhr("https://wechat-wein.herokuapp.com/activities",
+      "get", {},
+      function (res) {
+        console.log(res);
+        wx.hideLoading();
+        if (res.statusCode == 200) {
+          that.setData({
+            items: res.data.data
+          });
+        }
+      }
+    )
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
+  onLoad: function (options) {
+    this.load();
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    var that = this;
+    wx.showLoading({
+      title: '正在加载',
+    });
+    that.setData({items:[]});
+    app.xhr("https://wechat-wein.herokuapp.com/activities",
+      "get", {},
+      function (res) {
+        wx.hideLoading(); 
+        wx.stopPullDownRefresh();
+        if (res.statusCode == 200) {
+          that.setData({
+            items: res.data.data
+          });
+        }
+      }
+    )
   },
 
   /**
@@ -56,11 +68,4 @@ Page({
   onReachBottom: function () {
   
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

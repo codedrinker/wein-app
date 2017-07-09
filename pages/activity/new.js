@@ -79,7 +79,10 @@ Page({
       app.dialog("请选择位置");
       return;
     }
-
+    wx.showLoading({
+      title: '创建中，请稍等',
+    });
+    
     app.getUserInfo(function (user) {
       wx.request({
         url: "https://wechat-wein.herokuapp.com/activity/new",
@@ -97,12 +100,13 @@ Page({
           'content-type': 'application/json'
         },
         success(res) {
+          wx.hideLoading();
           console.log(res);
           if(res.statusCode == 200){
             app.toast.success();
             wx.navigateTo({
               url: 'show?id=' + res.data.data.id
-            })
+            });
           }else {
             app.toast.failure();
           }

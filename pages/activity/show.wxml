@@ -1,7 +1,7 @@
 <view class="container">
   <view class="cell">
     <view class="title">主题</view>
-    <view class="main">{{title}}</view>
+    <view class="main inline">{{title}}</view>
   </view>
   <view class="cell">
     <view class="title">类型</view>
@@ -17,7 +17,7 @@
   <view class="cell">
     <view class="title">位置</view>
     <view class="main" bindtap="locationTap">
-        <view class="classname">{{location.address}}</view>
+        <view class="classname inline">{{location.address}}</view>
     </view>
   </view>
   <view class="cell">
@@ -41,10 +41,10 @@
     <view class="main" >{{description}}
     </view>
   </view>
-  <view class="cell" wx:if="{{!isAttended}}">
+  <view class="btn" wx:if="{{!attended}}">
     <button type="primary" size="default" plain="default" bindtap="attendTap">参加活动</button>
   </view>
-  <view class="cell">
+  <view class="btn">
     <button type="primary" size="default" plain="default" open-type="share">分享活动</button>
   </view>
 </view>

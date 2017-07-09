@@ -1,13 +1,18 @@
 /**index.wxss**/
 .container {
   font-size:16px; 
-  margin-top: -60px;
+  margin-top: 10px;
 }
 .container .cell {
   border-top: 1px solid lightgray;
   height: 40px;
   width: 100%;
   padding-top: 15px;
+}
+.container .inline{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
 }
 
 .container .description-cell {

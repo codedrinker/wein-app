@@ -34,7 +34,7 @@
   <view class="cell">
     <view class="title">位置</view>
     <view class="main" bindtap="locationTap">
-        <view class="classname">{{location.address || "选择位置"}}</view>
+        <view class="classname inline">{{location.address || "选择位置"}}</view>
     </view>
   </view>
   <view class="cell">

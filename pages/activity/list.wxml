@@ -1,2 +1,7 @@
-<!--pages/activity/list.wxml-->
-<text>pages/activity/list.wxml</text>
+
+<view class="container" wx:for="{{items}}">
+  <view class="cell" bindtap="showActivity" id="{{item.id}}">
+    <view class="date">时间 : {{item.date}}-{{item.time}}</view>
+    <view class="title">主题 : {{item.title}}</view>
+  </view>
+</view>

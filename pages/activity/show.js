@@ -10,7 +10,7 @@ Page({
       console.log(res.target)
     }
     return {
-      title: "我发起了一个局，就差你，来么？",
+      title: '我发起了一个局，就差你，来么？',
       path: '/page/activity/show?id=' + that.data.id,
       success: function (res) {
         app.toast.success();
