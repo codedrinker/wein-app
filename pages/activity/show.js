@@ -11,7 +11,7 @@ Page({
     }
     return {
       title: '我发起了一个局，就差你，来么？',
-      path: '/page/activity/show?id=' + that.data.id,
+      path: '/pages/activity/show?id=' + that.data.id,
       success: function (res) {
         app.toast.success();
       },
@@ -36,9 +36,9 @@ Page({
       wx.request({
         url: "https://wechat-wein.herokuapp.com/activity/attend",
         data: {
-          userId: that.data.user.id,
+          userId: user.id,
           activityId: that.data.id,
-          user: that.data.user
+          user: user
         },
         method: "post",
         header: {
