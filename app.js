@@ -6,6 +6,22 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
   },
+  toast: {
+    success: function () {
+      wx.showToast({
+        title: '成功',
+        icon: 'success',
+        duration: 2000
+      })
+    },
+    failure : function(){
+      wx.showToast({
+        title: '失败',
+        icon: 'success',
+        duration: 2000
+      })
+    }
+  },
   dialog: function (message) {
     wx.showModal({
       title: '提示',
@@ -21,21 +37,23 @@ App({
     })
   },
   getUserInfo:function(cb){
-    var that = this
-    if(this.globalData.userInfo){
-      typeof cb == "function" && cb(this.globalData.userInfo)
+    var userInfo = wx.getStorageSync('userInfo');
+    if (userInfo){
+      typeof cb == "function" && cb(userInfo)
     }else{
       wx.login({
         success: function (res) {
           if(res.code){
             wx.getUserInfo({
               success: function (res) {
-                that.globalData.userInfo = res.userInfo;
-                that.globalData.userInfo.code = res.code;
-                typeof cb == "function" && cb(that.globalData.userInfo)
+                var userInfo = res.userInfo;
+                userInfo.code = res.code;
+                wx.setStorageSync("userInfo",userInfo);
+                typeof cb == "function" && cb(userInfo)
               }
             });
-            wx.request({               url:"https://wechat-wein.herokuapp.com/authorization",
+            wx.request({
+              url:"https://wechat-wein.herokuapp.com/authorization",
               data: {
                 code: res.code
               },
@@ -44,23 +62,20 @@ App({
                 'content-type': 'application/json'
               },
               success(codeRes){
-                console.log(codeRes);
-                if (!!that.globalData.userInfo){
-                  that.globalData.userInfo.id = codeRes.data.data.openid;
+                var userInfo = wx.getStorageSync('userInfo');
+                if (userInfo){
+                  userInfo.id = codeRes.data.data.openid;
                 }else {
-                  that.globalData.userInfo = {
+                  userInfo = {
                     id : codeRes.data.data.openid
                   };
                 }
-                console.log(that.globalData.userInfo);
+                wx.setStorageSync("userInfo", userInfo);
               }
             });
           }
         }
       })
     }
-  },
-  globalData:{
-    userInfo:null
   }
 })

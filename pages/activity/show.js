@@ -6,7 +6,7 @@ Page({
     motto: 'Welcome',
     items: [
       { name: 0, value: '吃饭', checked: 'true' },
-      { name: 1, value: '约球'},
+      { name: 1, value: '约球' },
       { name: 2, value: 'K歌' },
       { name: 3, value: '出游' }
     ],
@@ -43,7 +43,7 @@ Page({
       type: 'wgs84',
       success: function (res) {
         that.setData({
-          location:{
+          location: {
             latitude: res.latitude,
             longitude: res.longitude,
             name: res.name,
@@ -52,8 +52,8 @@ Page({
         });
       }
     });
-  }, 
-  buttonTap: function(){
+  },
+  buttonTap: function () {
     var that = this;
     if (!that.data.title) {
       app.dialog("请输入主题");
@@ -97,17 +97,32 @@ Page({
           'content-type': 'application/json'
         },
         success(res) {
-          console.log(res);
+          app.toast.success();
+          wx.navigateTo({
+            url: 'show?id=123123'
+          })
         }
       })
     })
   },
-  onLoad: function () {
-    var that = this
-    app.getUserInfo(function (user){
-      that.setData({
-        user:user
+  onLoad: function (options) {
+    if(options.id){
+      wx.request({
+        url: "https://wechat-wein.herokuapp.com/activity/show",
+        data: {
+          id: options.id
+        },
+        method: "get",
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          console.log(res);
+        }
       })
-    })
+    }else {
+      app.toast.failure();
+      wx.navigateBack();
+    }
   }
 })

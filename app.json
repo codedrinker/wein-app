@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/activity/new",
+    "pages/activity/show",
+    "pages/activity/list",
     "pages/history/history"
   ],
   "window": {
@@ -17,7 +19,7 @@
       {
         "selectedIconPath": "images/new_selected.png",
         "iconPath": "images/new.png",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/activity/new",
         "text": "创建",
         "color": "#a9b7b7",
         "selectedColor": "#11cd6e"
@@ -25,7 +27,7 @@
       {
         "selectedIconPath": "images/history_selected.png",
         "iconPath": "images/history.png",
-        "pagePath": "pages/history/history",
+        "pagePath": "pages/activity/list",
         "text": "历史",
         "color": "#a9b7b7",
         "selectedColor": "#11cd6e"
