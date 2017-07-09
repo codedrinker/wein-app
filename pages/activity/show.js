@@ -1,10 +1,7 @@
-//index.js
-//获取应用实例
 var app = getApp()
 Page({
   data: {
-    location :{},
-    user :{}
+
   },
   locationTap: function () {
     var that = this;
@@ -22,13 +19,9 @@ Page({
       wx.request({
         url: "https://wechat-wein.herokuapp.com/activity/attend",
         data: {
-          kind: that.data.kind,
-          title: that.data.title,
-          description: that.data.description,
-          date: that.data.date,
-          time: that.data.time,
-          location: that.data.location,
-          user: user
+          userId: that.data.user.id,
+          activityId: that.data.id,
+          user: that.data.user
         },
         method: "post",
         header: {
@@ -37,7 +30,7 @@ Page({
         success(res) {
           app.toast.success();
           wx.navigateTo({
-            url: 'show?id=123123'
+            url: 'list'
           })
         }
       })
@@ -57,16 +50,7 @@ Page({
         },
         success(res) {
           if(res.statusCode == 200){
-            that.data = res.data.data;
-            if (that.data.kind == 0) {
-              that.data.kindName = "吃饭";
-            } else if (that.data.kind == 1) {
-              that.data.kindName =  "约球";
-            } else if (that.data.kind == 2) {
-              that.data.kindName =  "K歌";
-            } else {
-              that.data.kindName =  "出游";
-            }
+            that.data= res.data.data;
             console.log(that.data);
           }else {
             app.toast.failure();

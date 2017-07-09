@@ -1,8 +1,7 @@
-<!--index.wxml-->
 <view class="container">
   <view class="cell">
     <view class="title">主题</view>
-    <view class="main">{{data.title}}</view>
+    <view class="main">{{title}}</view>
   </view>
   <view class="cell">
     <view class="title">类型</view>
