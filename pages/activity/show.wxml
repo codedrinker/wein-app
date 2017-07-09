@@ -27,12 +27,21 @@
          <view class="userinfo-name">{{user.nickName}}</view>
     </view>
   </view>
+  <view class="cell">
+    <view class="title">与会</view>
+    <view class="main paritipator">
+      <view wx:for="{{participators}}">
+        <image class="userinfo-avatar" src="{{item.avatarUrl}}" background-size="cover"></image>
+          <view class="userinfo-name">{{item.nickName}}         </view>
+      </view>
+    </view>
+  </view>
   <view class="description-cell">
     <view class="title">描述</view>
     <view class="main" >{{description}}
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{canAttend}}">
     <button type="primary" size="default" plain="default" bindtap="attendTap">参加活动</button>
   </view>
 </view>

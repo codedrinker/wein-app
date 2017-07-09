@@ -60,6 +60,13 @@ Page({
               res.data.data.kindName = "出游";
             }
             that.setData(res.data.data);
+            app.getUserInfo(function (user) {
+              if(user.id != res.data.data.user.id){
+                this.setData({
+                  canAttend: true
+                })
+              }
+            })
           }else {
             app.toast.failure();
             wx.navigateBack();
