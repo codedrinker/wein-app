@@ -23,11 +23,10 @@ Page({
   locationTap: function () {
     var that = this;
     wx.openLocation({
-      latitude: that.data.location.latitude,
-      longitude: that.data.location.longitude,
+      latitude: Number(that.data.location.latitude),
+      longitude: Number(that.data.location.longitude),
       name: that.data.location.name,
-      address: that.data.location.address,
-      scale: 28
+      address: that.data.location.address
     });
   },
   attendTap: function () {

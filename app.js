@@ -58,46 +58,54 @@ App({
       });
     });
   },
+  obtainUserInfo: function (cb) {
+    wx.login({
+      success: function (codeRes) {
+        if (codeRes.code) {
+          console.log(codeRes.code);
+          wx.getUserInfo({
+            success: function (res) {
+              var userInfo = res.userInfo;
+              userInfo.code = codeRes.code;
+              wx.setStorageSync("userInfo", userInfo);
+              typeof cb == "function" && cb(userInfo)
+            }
+          });
+          wx.request({
+            url: "https://wechat-wein.herokuapp.com/authorization",
+            data: {
+              code: codeRes.code
+            },
+            method: "get",
+            header: {
+              'content-type': 'application/json'
+            },
+            success(successRes) {
+              var userInfo = wx.getStorageSync('userInfo');
+              if (userInfo) {
+                userInfo.id = successRes.data.data.openid;
+              } else {
+                userInfo = {
+                  id: successRes.data.data.openid
+                };
+              }
+              wx.setStorageSync("userInfo", userInfo);
+            }
+          });
+        }
+      }
+    });
+  },
   getUserInfo:function(cb){
     var userInfo = wx.getStorageSync('userInfo');
     if (userInfo){
-      typeof cb == "function" && cb(userInfo)
+      if(!!userInfo.id){
+        typeof cb == "function" && cb(userInfo)
+      }else {
+        this.obtainUserInfo(cb);
+      }
     }else{
-      wx.login({
-        success: function (res) {
-          if(res.code){
-            wx.getUserInfo({
-              success: function (res) {
-                var userInfo = res.userInfo;
-                userInfo.code = res.code;
-                wx.setStorageSync("userInfo",userInfo);
-                typeof cb == "function" && cb(userInfo)
-              }
-            });
-            wx.request({
-              url:"https://wechat-wein.herokuapp.com/authorization",
-              data: {
-                code: res.code
-              },
-              method:"get",
-               header: {
-                'content-type': 'application/json'
-              },
-              success(codeRes){
-                var userInfo = wx.getStorageSync('userInfo');
-                if (userInfo){
-                  userInfo.id = codeRes.data.data.openid;
-                }else {
-                  userInfo = {
-                    id : codeRes.data.data.openid
-                  };
-                }
-                wx.setStorageSync("userInfo", userInfo);
-              }
-            });
-          }
-        }
-      })
+      this.obtainUserInfo(cb);
     }
   }
 })
