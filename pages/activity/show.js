@@ -55,13 +55,17 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
+    wx.showLoading({
+      title: '正在加载',
+    });
     if(options.id){
       app.xhr("https://wechat-wein.herokuapp.com/activity/show",
       "get",
       {
         id: options.id
       },
-      function(res){
+      function (res) {
+        wx.hideLoading();
         if (res.statusCode == 200) {
           if (res.data.data.kind == 0) {
             res.data.data.kindName = "吃饭";
@@ -73,23 +77,14 @@ Page({
             res.data.data.kindName = "出游";
           }
           that.setData(res.data.data);
-          app.getUserInfo(function (user) {
-            if (user.id != res.data.data.user.id) {
-              this.setData({
-                canAttend: true
-              });
-              this.setData({
-                currentUser: user
-              });
-            }
-          });
         } else {
           app.toast.failure();
           wx.navigateBack();
         }
       }
       );
-    }else {
+    } else {
+      wx.hideLoading();
       app.toast.failure();
       wx.navigateBack();
     }
