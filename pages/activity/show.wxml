@@ -44,4 +44,7 @@
   <view class="cell" wx:if="{{canAttend}}">
     <button type="primary" size="default" plain="default" bindtap="attendTap">参加活动</button>
   </view>
+  <view class="cell">
+    <button type="primary" size="default" plain="default" open-type="share">分享活动</button>
+  </view>
 </view>

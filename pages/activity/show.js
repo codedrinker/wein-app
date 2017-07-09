@@ -2,6 +2,23 @@ var app = getApp()
 Page({
   data: {
 
+  }, 
+  onShareAppMessage: function (res) {
+    var that = this;
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: "我发起了一个局，就差你，来么？",
+      path: '/page/activity/show?id=' + that.data.id,
+      success: function (res) {
+        app.toast.success();
+      },
+      fail: function (res) {
+        app.toast.failure();
+      }
+    }
   },
   locationTap: function () {
     var that = this;
@@ -64,9 +81,12 @@ Page({
               if(user.id != res.data.data.user.id){
                 this.setData({
                   canAttend: true
-                })
+                });
+                this.setData({
+                  currentUser: user
+                });
               }
-            })
+            });
           }else {
             app.toast.failure();
             wx.navigateBack();
