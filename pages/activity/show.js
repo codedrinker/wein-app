@@ -50,8 +50,16 @@ Page({
         },
         success(res) {
           if(res.statusCode == 200){
-            that.data= res.data.data;
-            console.log(that.data);
+            if (res.data.data.kind == 0) {
+              res.data.data.kindName = "吃饭";
+            } else if (res.data.data.kind == 1) {
+              res.data.data.kindName = "约球";
+            } else if (res.data.data.kind == 2) {
+              res.data.data.kindName = "K歌";
+            } else {
+              res.data.data.kindName = "出游";
+            }
+            that.setData(res.data.data);
           }else {
             app.toast.failure();
             wx.navigateBack();
