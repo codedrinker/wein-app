@@ -3,86 +3,24 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Welcome',
-    items: [
-      { name: 0, value: '吃饭', checked: 'true' },
-      { name: 1, value: '约球' },
-      { name: 2, value: 'K歌' },
-      { name: 3, value: '出游' }
-    ],
-    userInfo: {}
-  },
-  titleTap: function (e) {
-    this.setData({
-      title: e.detail.value
-    });
-  },
-  descriptionTap: function (e) {
-    this.setData({
-      description: e.detail.value
-    });
-  },
-  radioTap: function (e) {
-    this.setData({
-      kind: e.detail.value
-    });
-  },
-  dateTap: function (e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
-  timeTap: function (e) {
-    this.setData({
-      time: e.detail.value
-    })
+    location :{},
+    user :{}
   },
   locationTap: function () {
     var that = this;
-    wx.chooseLocation({
-      type: 'wgs84',
-      success: function (res) {
-        that.setData({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude,
-            name: res.name,
-            address: res.address
-          }
-        });
-      }
+    wx.openLocation({
+      latitude: that.data.location.latitude,
+      longitude: that.data.location.longitude,
+      name: that.data.location.name,
+      address: that.data.location.address,
+      scale: 28
     });
   },
-  buttonTap: function () {
+  attendTap: function () {
     var that = this;
-    if (!that.data.title) {
-      app.dialog("请输入主题");
-      return;
-    }
-
-    if (!that.data.date) {
-      app.dialog("请选择日期");
-      return;
-    }
-
-    if (!that.data.time) {
-      app.dialog("请选择时间");
-      return;
-    }
-
-    if (!that.data.title) {
-      app.dialog("请输入主题");
-      return;
-    }
-
-    if (!that.data.location) {
-      app.dialog("请选择位置");
-      return;
-    }
-
     app.getUserInfo(function (user) {
       wx.request({
-        url: "https://wechat-wein.herokuapp.com/activity/new",
+        url: "https://wechat-wein.herokuapp.com/activity/attend",
         data: {
           kind: that.data.kind,
           title: that.data.title,
@@ -106,6 +44,7 @@ Page({
     })
   },
   onLoad: function (options) {
+    var that = this;
     if(options.id){
       wx.request({
         url: "https://wechat-wein.herokuapp.com/activity/show",
@@ -117,9 +56,24 @@ Page({
           'content-type': 'application/json'
         },
         success(res) {
-          console.log(res);
+          if(res.statusCode == 200){
+            that.data = res.data.data;
+            if (that.data.kind == 0) {
+              that.data.kindName = "吃饭";
+            } else if (that.data.kind == 1) {
+              that.data.kindName =  "约球";
+            } else if (that.data.kind == 2) {
+              that.data.kindName =  "K歌";
+            } else {
+              that.data.kindName =  "出游";
+            }
+            console.log(that.data);
+          }else {
+            app.toast.failure();
+            wx.navigateBack();
+          }
         }
-      })
+      });
     }else {
       app.toast.failure();
       wx.navigateBack();
