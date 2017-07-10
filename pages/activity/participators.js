@@ -15,7 +15,10 @@ Page({
     }
   },
   onShow: function () {
-    this.load();
+    var that = this;
+    if(that.data.id){
+      this.load(that.data.id);
+    }
   },
   load: function (id) {
     wx.showLoading({
@@ -49,6 +52,9 @@ Page({
    */
   onPullDownRefresh: function () {
     var that = this;
+    if(!that.data.id){
+      return;
+    }
     wx.showLoading({
       title: '正在加载',
     });
