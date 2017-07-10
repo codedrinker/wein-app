@@ -27,13 +27,12 @@
          <view class="userinfo-name">{{user.nickName}}</view>
     </view>
   </view>
-  <view class="cell">
+  <view class="cell attend">
     <view class="title">与会</view>
-    <view class="main paritipator">
-      <view wx:for="{{participators}}">
-        <image class="userinfo-avatar" src="{{item.avatarUrl}}" background-size="cover"></image>
-          <view class="userinfo-name">{{item.nickName}}         </view>
-      </view>
+    <view class="main paritipator inline">
+    <view class="count">{{participators.length}}人参加</view>
+    <image class="userinfo-avatar" src="{{participators[0].avatarUrl}}" background-size="cover"></image>
+          <view class="userinfo-name inline">{{participators[0].nickName}}         </view>
     </view>
   </view>
   <view class="description-cell">

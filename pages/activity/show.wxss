@@ -9,6 +9,26 @@
   width: 100%;
   padding-top: 15px;
 }
+.container .attend {
+  padding: 15px;
+}
+
+.container .cell .paritipator .count{
+  width: 30%;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.container .cell .paritipator .userinfo-avatar{
+  width: 30%;
+  height: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.container .cell .paritipator .userinfo-name{
+  width: 40%;
+  display: inline-block;
+  box-sizing: border-box;
+}
 .container .inline {
   text-overflow: ellipsis;
   overflow: hidden;
