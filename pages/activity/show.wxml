@@ -27,7 +27,7 @@
          <view class="userinfo-name">{{user.nickName}}</view>
     </view>
   </view>
-  <view class="cell attend">
+  <view class="cell attend" bindtap="participatorsTap">
     <view class="title">与会</view>
     <view class="main paritipator inline">
     <view class="count">{{participators.length}}人参加</view>

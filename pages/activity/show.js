@@ -29,6 +29,12 @@ Page({
       address: that.data.location.address
     });
   },
+  participatorsTap: function () {
+    var that = this;
+    wx.navigateTo({
+      url: 'participators?id=' + that.data.id
+    });
+  },
   attendTap: function () {
     var that = this;
     app.getUserInfo(function (user) {

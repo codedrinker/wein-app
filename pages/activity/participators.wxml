@@ -1,0 +1,7 @@
+
+<view class="container" wx:for="{{items}}">
+  <view class="cell">
+    <view class="userinfo-name">{{item.nickName}}</view>
+    <view class="userinfo-avatar">{{item.avatarUrl}}</view>
+  </view>
+</view>

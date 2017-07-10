@@ -1,0 +1,28 @@
+
+.container {
+  font-size:16px; 
+  margin-top: 10px;
+}
+.container .cell {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+  border-top: 1px solid lightgray;
+  height: 50px;
+  width: 100%;
+  padding-top: 15px;
+  padding-left:15px;
+}
+.container .cell .userinfo-name {
+  text-align: center;
+  margin-left: 10px;
+  overflow: hidden;
+  float: left;
+}
+.container .cell .userinfo-avatar {
+  margin-top: -5px;
+  float: left;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+}

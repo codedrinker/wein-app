@@ -3,6 +3,7 @@
     "pages/activity/new",
     "pages/activity/show",
     "pages/activity/list",
+    "pages/activity/participators",
     "pages/history/history"
   ],
   "window": {
